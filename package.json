@@ -3,7 +3,11 @@
     "type": "module",
     "scripts": {
         "start": "start http://127.0.0.1:8000/admin/login && php artisan serve",
-        "controller": "php artisan make:controller admin/HomeController",
+        "controller": "php artisan make:controller admin/CategoryController",
+        "model": "php artisan make:model Category",
+        "factory": "php artisan make:factory CategoryFactory",
+        "seed": "php artisan db:seed",
+        "migrate": "php artisan make:migration create_categories_table",
         "mgrt": "php artisan migrate",
         "tinker": "php artisan tinker",
         "sleep5s": "node -e \"setTimeout(() => process.exit(0), 5000)\"",
