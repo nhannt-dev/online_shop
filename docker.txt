@@ -1,0 +1,4 @@
+docker exec -it db bash
+psql -U nhannt -W online_shop
+\dt
+SELECT * FROM <tablename>;
