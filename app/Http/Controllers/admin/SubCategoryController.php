@@ -112,7 +112,6 @@ class SubCategoryController extends Controller
     public function destroy($id, Request $request)
     {
         $subCategory = SubCategory::find($id);
-        $subCategory = SubCategory::find($id);
         if (empty($subCategory)) {
             session()->flash('error', 'Sub Category not found!');
             return response([
