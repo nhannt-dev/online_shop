@@ -59,6 +59,7 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row" id="product-gallery"></div>
                     <div class="card mb-3">
                         <div class="card-body">
                             <h2 class="h4 mb-3">Pricing</h2>
@@ -181,7 +182,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="pb-5 pt-3">
                 <button type="submit" class="btn btn-primary">Create</button>
                 <a href="{{route('products.index')}}" class="btn btn-outline-dark ml-3">Cancel</a>
@@ -200,7 +200,7 @@
         event.preventDefault()
         var formArr = $(this).serializeArray()
         $('button[type="submit"]').prop('disabled', true)
-        
+
         $.ajax({
             url: "{{route('products.store')}}",
             type: 'post',
@@ -209,7 +209,9 @@
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
                 if (response['status'] == true) {
-
+                    $('.error').removeClass('invalid-feedback').html()
+                    $('input[type="text"], select, input[type="number"]').removeClass('is-invalid')
+                    window.location.href = "{{route('products.index')}}"
                 } else {
                     var errors = response['errors']
                     $('.error').removeClass('invalid-feedback').html()
@@ -264,5 +266,38 @@
             }
         })
     })
+
+    Dropzone.autoDiscover = false;
+    const dropzone = $("#image").dropzone({
+        url: "{{ route('temp-images.create') }}",
+        maxFiles: 10,
+        paramName: 'image',
+        addRemoveLinks: true,
+        acceptedFiles: "image/jpeg,image/png,image/gif",
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(file, response) {
+            var html = `
+                <div class="col-md-3" id="image-row-${response.image_id}">
+                    <div class="card">
+                        <input type="hidden" name="image_array[]" value="${response.image_id}">
+                        <img src="${response.ImagePath}" class="card-img-top">
+                        <div class="card-body">
+                            <a href="avascript:void(0)" onclick="deleteImage(${response.image_id})" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            `
+            $('#product-gallery').append(html)
+        },
+        complete: function(file) {
+            this.removeFile(file)
+        }
+    })
+
+    function deleteImage(id) {
+        $(`#image-row-${id}`).remove()
+    }
 </script>
 @endsection
