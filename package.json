@@ -3,7 +3,7 @@
     "type": "module",
     "scripts": {
         "start": "start http://127.0.0.1:8000/admin/login && php artisan serve",
-        "controller": "php artisan make:controller admin/ProductSubCategoryController",
+        "controller": "php artisan make:controller admin/6",
         "model": "php artisan make:model ProductImage",
         "factory": "php artisan make:factory BrandFactory",
         "seed": "php artisan db:seed",

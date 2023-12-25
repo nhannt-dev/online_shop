@@ -11,8 +11,8 @@ class TempImagesController extends Controller
 {
     public function create(Request $request)
     {
-        $image = $request->image;
-        if (!empty($image)) {
+        if (!empty($request->image)) {
+            $image = $request->image;
             $ext = $image->getClientOriginalExtension();
             $newName = time() . '.' . $ext;
             $tempImage = new TempImage();
