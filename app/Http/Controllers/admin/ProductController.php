@@ -10,6 +10,7 @@ use App\Models\ProductImage;
 use App\Models\SubCategory;
 use App\Models\TempImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image as Image;
 
@@ -160,37 +161,6 @@ class ProductController extends Controller
             $product->brand_id = $request->brand;
             $product->save();
 
-            // if (!empty($request->image_array)) {
-            //     foreach ($request->image_array as $temp_image_id) {
-            //         $tempImageInfo = TempImage::find($temp_image_id);
-            //         $extArray = explode('.', $tempImageInfo->name);
-            //         $ext = last($extArray);
-
-            //         $productImage = new ProductImage();
-            //         $productImage->product_id = $product->id;
-            //         $productImage->image = 'NULL';
-            //         $productImage->save();
-
-            //         $imageName = $product->id . '-' . $productImage->id . '-' . time() . '.' . $ext;
-            //         $productImage->image = $imageName;
-            //         $productImage->save();
-
-            //         // Large image
-            //         $sourcePath = public_path() . '/temp/' . $tempImageInfo->name;
-            //         $destPath = public_path() . '/uploads/product/large/' . $imageName;
-            //         $image = Image::make($sourcePath);
-            //         $image->resize(1400, null, function ($constraint) {
-            //             $constraint->aspectRatio();
-            //         });
-            //         $image->save($destPath);
-            //         // Small image
-            //         $destPath = public_path() . '/uploads/product/small/' . $imageName;
-            //         $image = Image::make($sourcePath);
-            //         $image->fit(300, 300);
-            //         $image->save($destPath);
-            //     }
-            // }
-
             session()->flash('success', 'Product updated successfully');
 
             return response()->json([
@@ -207,5 +177,27 @@ class ProductController extends Controller
 
     public function destroy($id, Request $request)
     {
+        $product = Product::find($id);
+        if (empty($product)) {
+            session()->flash('error', 'Product Not Found');
+            return response()->json([
+                'status' => false,
+                'notFound' => true,
+            ]);
+        }
+        $productImages = ProductImage::where('product_id', $id)->get();
+        if (!empty($productImages)) {
+            foreach ($productImages as $productImage) {
+                File::delete(public_path('uploads/product/large/' . $productImage->image));
+                File::delete(public_path('uploads/product/small/' . $productImage->image));
+            }
+            ProductImage::where('product_id', $id)->delete();
+        }
+        $product->delete();
+        session()->flash('success', 'Product deleted successfully');
+        return response()->json([
+            'status' => true,
+            'message' => 'Product deleted successfully',
+        ]);
     }
 }

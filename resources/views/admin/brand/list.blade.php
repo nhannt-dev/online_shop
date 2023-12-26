@@ -87,7 +87,7 @@
                         @endforeach
                         @else
                         <tr>
-                            <td colspan="5">Category Not Found</td>
+                            <td colspan="5" class="text-center">Brand Not Found</td>
                         </tr>
                         @endif
                     </tbody>
