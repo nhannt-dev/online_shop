@@ -65,6 +65,7 @@ class ProductController extends Controller
             $product->track_qty = $request->track_qty;
             $product->qty = $request->qty;
             $product->status = $request->status;
+            $product->is_featured = $request->is_featured;
             $product->category_id = $request->category;
             $product->sub_category_id = $request->sub_category;
             $product->brand_id = $request->brand;
@@ -156,6 +157,7 @@ class ProductController extends Controller
             $product->track_qty = $request->track_qty;
             $product->qty = $request->qty;
             $product->status = $request->status;
+            $product->is_featured = $request->is_featured;
             $product->category_id = $request->category;
             $product->sub_category_id = $request->sub_category;
             $product->brand_id = $request->brand;
