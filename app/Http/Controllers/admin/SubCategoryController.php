@@ -23,7 +23,7 @@ class SubCategoryController extends Controller
 
     public function create()
     {
-        $categories = Category::orderBy('name', 'ASC')->get();
+        $categories = Category::orderBy('name', 'ASC')->where('status', 1)->get();
         return view('admin.sub_category.create', compact('categories'));
     }
 

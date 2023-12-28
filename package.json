@@ -4,7 +4,7 @@
     "scripts": {
         "admin": "start http://127.0.0.1:8000/admin/login && php artisan serve",
         "user": "start http://127.0.0.1:8000 && php artisan serve",
-        "controller": "php artisan make:controller FrontController",
+        "controller": "php artisan make:controller ShopController",
         "model": "php artisan make:model ProductImage",
         "dump": "composer dump-autoload",
         "factory": "php artisan make:factory BrandFactory",

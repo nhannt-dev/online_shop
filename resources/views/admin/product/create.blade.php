@@ -74,7 +74,7 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="compare_price">Compare at Price</label>
-                                        <input type="text" name="compare_price" id="compare_price" class="form-control" placeholder="Compare Price">
+                                        <input type="number" name="compare_price" id="compare_price" class="form-control" placeholder="Compare Price">
                                         <p class="text-muted mt-3">
                                             To show a reduced price, move the product’s original price into Compare at price. Enter a lower value into Price.
                                         </p>
