@@ -7,7 +7,7 @@
         "controller": "php artisan make:controller ShopController",
         "model": "php artisan make:model ProductImage",
         "dump": "composer dump-autoload",
-        "factory": "php artisan make:factory BrandFactory",
+        "factory": "php artisan make:factory SubCategoryFactory",
         "seed": "php artisan db:seed",
         "migrate": "php artisan make:migration alter_sub_categories_table",
         "mgrt": "php artisan migrate",
