@@ -37,8 +37,6 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <!-- <img src="images/carousel-3.jpg" class="d-block w-100" alt=""> -->
-
                 <picture>
                     <source media="(max-width: 799px)" srcset="{{asset('front-assets/images/carousel-3-m.jpg')}}" />
                     <source media="(min-width: 800px)" srcset="{{asset('front-assets/images/carousel-3.jpg')}}" />
@@ -107,12 +105,13 @@
                     <div class="left">
                         @if ($category->image != '')
                         <img src="{{asset('uploads/category/thumb/'.$category->image)}}" alt="" class="img-fluid">
+                        @else
+                        <img src="{{asset('admin-assets/img/default-150x150.png')}}" class="img-fluid">
                         @endif
                     </div>
                     <div class="right">
                         <div class="cat-data">
                             <h2>{{$category->name}}</h2>
-                            <!-- <p>100 Products</p> -->
                         </div>
                     </div>
                 </div>
@@ -135,7 +134,7 @@
             <div class="col-md-3">
                 <div class="card product-card">
                     <div class="product-image position-relative">
-                        <a href="" class="product-img">
+                        <a href="{{route('front.product',$product->slug)}}" class="product-img">
                             @if (!empty($productImage->image))
                             <img src="{{asset('uploads/product/small/' . $productImage->image)}}" class="card-img-top">
                             @else
@@ -151,7 +150,7 @@
                         </div>
                     </div>
                     <div class="card-body text-center mt-3">
-                        <a class="h6 link" href="product.php">{{$product->title}}</a>
+                        <a class="h6 link" href="{{route('front.product',$product->slug)}}">{{$product->title}}</a>
                         <div class="price mt-2">
                             <span class="h5"><strong>${{$product->price}}</strong></span>
                             @if ($product->compare_price)
@@ -179,7 +178,7 @@
             <div class="col-md-3">
                 <div class="card product-card">
                     <div class="product-image position-relative">
-                        <a href="" class="product-img">
+                        <a href="{{route('front.product',$product->slug)}}" class="product-img">
                             @if (!empty($productImage->image))
                             <img src="{{asset('uploads/product/small/' . $productImage->image)}}" class="card-img-top">
                             @else
@@ -195,7 +194,7 @@
                         </div>
                     </div>
                     <div class="card-body text-center mt-3">
-                        <a class="h6 link" href="product.php">{{$product->title}}</a>
+                        <a class="h6 link" href="{{route('front.product',$product->slug)}}">{{$product->title}}</a>
                         <div class="price mt-2">
                             <span class="h5"><strong>${{$product->price}}</strong></span>
                             @if ($product->compare_price)

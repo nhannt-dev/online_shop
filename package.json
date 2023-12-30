@@ -9,7 +9,7 @@
         "dump": "composer dump-autoload",
         "factory": "php artisan make:factory SubCategoryFactory",
         "seed": "php artisan db:seed",
-        "migrate": "php artisan make:migration alter_sub_categories_table",
+        "migrate": "php artisan make:migration alter_products_table",
         "mgrt": "php artisan migrate",
         "tinker": "php artisan tinker",
         "sleep5s": "node -e \"setTimeout(() => process.exit(0), 5000)\"",

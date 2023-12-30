@@ -55,11 +55,18 @@ class ShopController extends Controller
             } else {
                 $products = $products->orderBy('price', 'DESC');
             }
-        }else {
+        } else {
             $products = $products->orderBy('id', 'DESC');
         }
         $products = $products->paginate(6);
         $sort = $request->get('sort');
         return view('front.shop', compact('categories', 'brands', 'products', 'categorySelected', 'subCategorySelected', 'brandArr', 'price_min', 'price_max', 'sort'));
+    }
+
+    public function product($slug)
+    {
+        $product = Product::where('slug', $slug)->with('product_images')->first();
+        if ($product == null) abort(404);
+        return view('front.product', compact('product'));
     }
 }
