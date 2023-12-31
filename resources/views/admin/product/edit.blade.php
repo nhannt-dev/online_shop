@@ -201,11 +201,26 @@
                     </div>
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h2 class="h4 mb-3">Featured product</h2>
+                            <h2 class="h4 mb-3">Featured Product</h2>
                             <div class="mb-3">
                                 <select name="is_featured" id="is_featured" class="form-control">
                                     <option {{$product->is_featured == 'No' ? 'selected' : ''}} value="No">No</option>
                                     <option {{$product->is_featured == 'Yes' ? 'selected' : ''}} value="Yes">Yes</option>
+                                </select>
+                                <p class="error"></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h2 class="h4 mb-3">Related Product</h2>
+                            <div class="mb-3">
+                                <select multiple class='related-product w-100' name="related_products[]" id="related_products" class="form-control">
+                                    @if (!empty($relatedProducts))
+                                    @foreach ($relatedProducts as $relatedProduct)
+                                    <option selected value="{{$relatedProduct->id}}">{{$relatedProduct->title}}</option>
+                                    @endforeach
+                                    @endif
                                 </select>
                                 <p class="error"></p>
                             </div>
@@ -227,6 +242,21 @@
 
 @section('customJS')
 <script>
+    $('.related-product').select2({
+        ajax: {
+            url: '{{ route("products.getProducts") }}',
+            dataType: 'json',
+            tags: true,
+            multiple: true,
+            minimumInputLength: 3,
+            processResults: function(data) {
+                return {
+                    results: data.tags
+                }
+            }
+        }
+    })
+
     $('#productForm').submit(function(event) {
         event.preventDefault()
         var formArr = $(this).serializeArray()
