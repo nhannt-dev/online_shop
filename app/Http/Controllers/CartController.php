@@ -52,4 +52,48 @@ class CartController extends Controller
         $cartContent = Cart::content();
         return view('front.cart', compact('cartContent'));
     }
+
+    public function updateCart(Request $request)
+    {
+        $rowId = $request->rowId;
+        $qty = $request->qty;
+        $itemIn4 = Cart::get($rowId);
+        $product = Product::find($itemIn4->id);
+        if ($product->track_qty == 'Yes') {
+            if ($qty <= $product->qty) {
+                Cart::update($rowId, $qty);
+                $message = 'Cart updated successfully!';
+                $status = true;
+            } else {
+                $message = $product->title . ' exceeding ' . $qty . ' will be out of stock';
+                $status = false;
+            }
+        }
+
+        session()->flash('error', $product->title . ' exceeding ' . $qty . ' will be out of stock');
+
+        return response()->json([
+            'status' => $status,
+            'message' => $message
+        ]);
+    }
+
+    public function deleteCart(Request $request)
+    {
+        $rowId = $request->rowId;
+        $itemIn4 = Cart::get($rowId);
+        if ($itemIn4 == null) {
+            session()->flash('error', 'Item Not Found');
+            return response()->json([
+                'status' => false,
+                'message' => 'Item Not Found'
+            ]);
+        }
+        Cart::remove($rowId);
+        session()->flash('success', 'Successfully removed product from cart');
+        return response()->json([
+            'status' => true,
+            'message' => 'Successfully removed product from cart'
+        ]);
+    }
 }

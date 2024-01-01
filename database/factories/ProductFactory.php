@@ -40,7 +40,7 @@ class ProductFactory extends Factory
             'price' => rand(10, 1000),
             'sku' => rand(1000, 100000000),
             'track_qty' => 'Yes',
-            'qty' => rand(10, 50),
+            'qty' => rand(1, 20),
             'is_featured' => 'Yes',
             'status' => rand(0, 1),
         ];

@@ -36,6 +36,8 @@ Route::get('/shop/{categorySlug?}/{subCategorySlug?}', [ShopController::class, '
 Route::get('/product/{slug}', [ShopController::class, 'product'])->name('front.product');
 Route::get('/cart', [CartController::class, 'cart'])->name('front.cart');
 Route::post('/add-to-cart', [CartController::class, 'add2cart'])->name('front.add2cart');
+Route::post('/update-cart', [CartController::class, 'updateCart'])->name('front.updateCart');
+Route::post('/delete-cart', [CartController::class, 'deleteCart'])->name('front.deleteCart');
 
 Route::group(['prefix' => 'admin'], function () {
     Route::group(['middleware' => 'admin.guest'], function () {
