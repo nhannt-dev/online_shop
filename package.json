@@ -3,7 +3,7 @@
     "type": "module",
     "scripts": {
         "admin": "start http://127.0.0.1:8000/admin/login && php artisan serve",
-        "user": "start http://127.0.0.1:8000/register && php artisan serve",
+        "user": "start http://127.0.0.1:8000/account/register && php artisan serve",
         "controller": "php artisan make:controller AuthController",
         "model": "php artisan make:model ProductImage",
         "dump": "composer dump-autoload",

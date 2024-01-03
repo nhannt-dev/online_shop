@@ -40,7 +40,7 @@
                 </div>
                 <button type="submit" class="btn btn-dark btn-block btn-lg" value="Register">Register</button>
             </form>
-            <div class="text-center small">Already have an account? <a href="{{route('front.login')}}">Login Now</a></div>
+            <div class="text-center small">Already have an account? <a href="{{route('account.login')}}">Login Now</a></div>
         </div>
     </div>
 </section>
@@ -52,7 +52,7 @@
         event.preventDefault()
         $('button[type="submit"]').prop('disable', true)
         $.ajax({
-            url: '{{route("front.process.register")}}',
+            url: '{{route("account.process.register")}}',
             type: 'post',
             data: $(this).serializeArray(),
             dataType: 'json',
@@ -99,7 +99,7 @@
                     $('#phone').removeClass('is-invalid')
                     $('#password').siblings('p').removeClass('invalid-feedback').html('')
                     $('#password').removeClass('is-invalid')
-                    window.location.href = '{{route("front.login")}}'
+                    window.location.href = '{{route("account.login")}}'
                 }
             }
         })
