@@ -53,7 +53,3 @@
     </div>
 </section>
 @endsection
-
-@section('customJS')
-
-@endsection
