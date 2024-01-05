@@ -58,7 +58,7 @@
             dataType: 'json',
             success: function(response) {
                 var errors = response.errors
-                if (response.status == false) {
+                if (!response.status) {
                     if (errors.name) {
                         $('#name').siblings('p').addClass('invalid-feedback').html(errors.name)
                         $('#name').addClass('is-invalid')

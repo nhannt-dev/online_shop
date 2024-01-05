@@ -40,6 +40,8 @@ Route::post('/add-to-cart', [CartController::class, 'add2cart'])->name('front.ad
 Route::post('/update-cart', [CartController::class, 'updateCart'])->name('front.updateCart');
 Route::post('/delete-cart', [CartController::class, 'deleteCart'])->name('front.deleteCart');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('front.checkout');
+Route::post('/process-checkout', [CartController::class, 'processCheckout'])->name('front.processCheckout');
+Route::get('/thankyou/{orderId}', [CartController::class, 'thankyou'])->name('front.thankyou');
 
 
 Route::group(['prefix' => 'account'], function () {
