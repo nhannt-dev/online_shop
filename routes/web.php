@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\HomeController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ProductImageController;
 use App\Http\Controllers\admin\ProductSubCategoryController;
+use App\Http\Controllers\admin\ShippingChargeController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\TempImagesController;
 use App\Http\Controllers\AuthController;
@@ -102,6 +103,13 @@ Route::group(['prefix' => 'admin'], function () {
         
         Route::post('/product-images/update', [ProductImageController::class, 'update'])->name('product-images.update');
         Route::delete('/product-images', [ProductImageController::class, 'destroy'])->name('product-images.destroy');
+        
+        Route::get('/shipping/create',[ShippingChargeController::class,'create'])->name('shipping.create');
+        Route::post('/shipping',[ShippingChargeController::class,'store'])->name('shipping.store');
+        Route::get('/shipping',[ShippingChargeController::class,'index'])->name('shipping.index');
+        Route::get('/shipping/{shipping}/edit', [ShippingChargeController::class, 'edit'])->name('shipping.edit');
+        Route::put('/shipping/{shipping}', [ShippingChargeController::class, 'update'])->name('shipping.update');
+        Route::delete('/shipping/{shipping}', [ShippingChargeController::class, 'destroy'])->name('shipping.delete');
 
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
         

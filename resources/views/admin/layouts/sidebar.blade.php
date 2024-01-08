@@ -45,7 +45,7 @@
 				</li>
 
 				<li class="nav-item">
-					<a href="#" class="nav-link">
+					<a href="{{route('shipping.index')}}" class="nav-link">
 						<!-- <i class="nav-icon fas fa-tag"></i> -->
 						<i class="fas fa-truck nav-icon"></i>
 						<p>Shipping</p>
@@ -59,19 +59,19 @@
 				</li>
 				<li class="nav-item">
 					<a href="discount.html" class="nav-link">
-						<i class="nav-icon  fa fa-percent" aria-hidden="true"></i>
+						<i class="nav-icon fa fa-percent" aria-hidden="true"></i>
 						<p>Discount</p>
 					</a>
 				</li>
 				<li class="nav-item">
 					<a href="users.html" class="nav-link">
-						<i class="nav-icon  fas fa-users"></i>
+						<i class="nav-icon fas fa-users"></i>
 						<p>Users</p>
 					</a>
 				</li>
 				<li class="nav-item">
 					<a href="pages.html" class="nav-link">
-						<i class="nav-icon  far fa-file-alt"></i>
+						<i class="nav-icon far fa-file-alt"></i>
 						<p>Pages</p>
 					</a>
 				</li>
