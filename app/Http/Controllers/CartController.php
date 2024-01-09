@@ -7,6 +7,7 @@ use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Models\ShippingCharge;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart as Cart;
 use Illuminate\Support\Facades\Auth;
@@ -113,7 +114,16 @@ class CartController extends Controller
         session()->forget('url.intended');
         $countries = Country::orderBy('name', 'ASC')->get();
         $customerAddress = CustomerAddress::where('user_id', Auth::user()->id)->first();
-        return view('front.checkout', compact('countries', 'customerAddress'));
+        $userCountry = $customerAddress?->country_id;
+        $shippingIn4 = ShippingCharge::where('country_id', $userCountry)->first();
+        $totalShippingCharge = 0;
+        $totalQty = 0;
+        foreach (Cart::content() as $item) {
+            $totalQty += $item->qty;
+        }
+        $totalShippingCharge = $totalQty * $shippingIn4?->amount;
+        $grandTotal = Cart::subtotal(2, '.', '') + $totalShippingCharge;
+        return view('front.checkout', compact('countries', 'customerAddress', 'totalShippingCharge', 'grandTotal'));
     }
 
     public function processCheckout(Request $request)
@@ -166,6 +176,16 @@ class CartController extends Controller
             $subTotal = Cart::subtotal(2, '.', '');
             $grandTotal = $subTotal + $shipping;
 
+            $shippingIn4 = ShippingCharge::where('country_id', $request->country)->first();
+            $totalQty = 0;
+            foreach (Cart::content() as $item) {
+                $totalQty += $item->qty;
+            }
+            if ($shippingIn4 != null) {
+                $shipping = $totalQty * $shippingIn4->amount;
+                $grandTotal = $subTotal + $shipping;
+            }
+
             $order = new Order();
             $order->subtotal = $subTotal;
             $order->shipping = $shipping;
@@ -203,8 +223,6 @@ class CartController extends Controller
                 'orderId' => $order->id,
                 'message' => 'Order saved successfully!'
             ]);
-        } else {
-            # code...
         }
     }
 
@@ -212,5 +230,32 @@ class CartController extends Controller
     {
         if ($id) return view('front.thankyou');
         else return view('front.checkout');
+    }
+
+    public function getOrderSummary(Request $request)
+    {
+        $subTotal = Cart::subtotal(2, '.', '');
+        if ($request->country_id > 0) {
+            $shippingIn4 = ShippingCharge::where('country_id', $request->country_id)->first();
+            $totalQty = 0;
+            foreach (Cart::content() as $item) {
+                $totalQty += $item->qty;
+            }
+            if ($shippingIn4 != null) {
+                $shippingCharge = $totalQty * $shippingIn4->amount;
+                $grandTotal = $subTotal + $shippingCharge;
+                return response()->json([
+                    'status' => true,
+                    'grandTotal' => number_format($grandTotal, 2),
+                    'shippingCharge' => number_format($shippingCharge, 2),
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => true,
+                'grandTotal' => number_format($subTotal, 2),
+                'shippingCharge' => number_format(0, 2),
+            ]);
+        }
     }
 }
