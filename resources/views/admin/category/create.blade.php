@@ -131,7 +131,7 @@
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
-                if (response['status'] == true) {
+                if (response['status']) {
                     $('#slug').val(response['slug'])
                 }
             }

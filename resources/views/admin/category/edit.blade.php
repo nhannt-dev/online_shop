@@ -99,12 +99,12 @@
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
-                if (response['status'] == true) {
+                if (response['status']) {
                     window.location.href = "{{route('categories.index')}}"
                     $('#name').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
                     $('#slug').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
                 } else {
-                    if (response['notFound'] == true) {
+                    if (response['notFound']) {
                         window.location.href = "{{route('categories.index')}}"
                     }
                     var errors = response['errors']
@@ -120,9 +120,6 @@
                         $('#slug').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
                     }
                 }
-            },
-            error: function(jqXHR, exception) {
-                console.log('Something went wrong')
             }
         })
     })

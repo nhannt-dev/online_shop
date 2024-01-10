@@ -15,7 +15,17 @@
 	<!-- Theme style -->
 	<link rel="stylesheet" href="{{asset('admin-assets/css/adminlte.min.css')}}">
 	<link rel="stylesheet" href="{{asset('admin-assets/css/custom.css')}}">
+	<link rel="stylesheet" href="{{asset('admin-assets/css/datetimepicker.css')}}">
 	<meta name="csrf-token" content="{{csrf_token()}}">
+	<style>
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			/* display: none; <- Crashes Chrome on hover */
+			-webkit-appearance: none;
+			margin: 0;
+			/* <-- Apparently some margin are still there even though it's hidden */
+		}
+	</style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -89,6 +99,7 @@
 	<script src="{{asset('admin-assets/plugins/select2/js/select2.min.js')}}"></script>
 	<!-- AdminLTE for demo purposes -->
 	<script src="{{asset('admin-assets/js/demo.js')}}"></script>
+	<script src="{{asset('admin-assets/js/datetimepicker.js')}}"></script>
 	<script src="{{asset('admin-assets/plugins/dropzone/min/dropzone.min.js')}}"></script>
 	<script type="text/javascript">
 		$.ajaxSetup({
@@ -99,7 +110,7 @@
 
 		$(document).ready(function() {
 			$('.summernote').summernote({
-				height:250
+				height: 250
 			})
 		})
 	</script>
