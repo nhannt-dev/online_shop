@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Country;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,10 +20,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        \App\Models\Category::factory(10)->create();
-        \App\Models\SubCategory::factory(30)->create();
+        \App\Models\Category::factory(20)->create();
+        \App\Models\SubCategory::factory(50)->create();
         \App\Models\Brand::factory(30)->create();
-        \App\Models\Product::factory(50)->create();
-        \App\Models\ShippingCharge::factory(242)->create();
+        \App\Models\Product::factory(100)->create();
+        \App\Models\ShippingCharge::factory(Country::get()->count())->create();
     }
 }

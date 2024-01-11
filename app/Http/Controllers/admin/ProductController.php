@@ -27,7 +27,7 @@ class ProductController extends Controller
         $products = $products->paginate(10);
         return view('admin.product.list', compact('products'));
     }
-    
+
     public function create()
     {
         $categories = Category::orderBy('name', 'ASC')->where('status', 1)->get();
@@ -46,13 +46,13 @@ class ProductController extends Controller
             'category' => 'required|numeric',
             'is_featured' => 'required|in:Yes,No'
         ];
-        
+
         if (!empty($request->track_qty) && $request->track_qty == 'Yes') {
             $rules['qty'] = 'required|numeric';
         }
 
         $validator = Validator::make($request->all(), $rules);
-        
+
         if ($validator->passes()) {
             $product = new Product();
             $product->title = $request->title;
@@ -188,7 +188,7 @@ class ProductController extends Controller
         }
     }
 
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
         $product = Product::find($id);
         if (empty($product)) {

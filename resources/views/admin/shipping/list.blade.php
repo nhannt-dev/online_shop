@@ -29,7 +29,7 @@
                     </div>
                     <div class="card-tools">
                         <div class="input-group input-group" style="width: 250px;">
-                            <input type="text" name="keyword" value="{{Request::get('keyword')}}" class="form-control float-right" placeholder="Search">
+                            <input type="text" autocomplete="off" name="keyword" value="{{Request::get('keyword')}}" class="form-control float-right" placeholder="Search Country Name">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fas fa-search"></i>

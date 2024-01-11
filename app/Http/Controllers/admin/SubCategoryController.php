@@ -111,7 +111,7 @@ class SubCategoryController extends Controller
         }
     }
 
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
         $subCategory = SubCategory::find($id);
         if (empty($subCategory)) {

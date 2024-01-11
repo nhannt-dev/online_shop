@@ -73,18 +73,18 @@ class CategoryController extends Controller
         }
     }
     
-    public function edit($categoryId, Request $request)
+    public function edit($id, Request $request)
     {
-        $category = Category::find($categoryId);
+        $category = Category::find($id);
         if (empty($category)) {
             return redirect()->route('categories.index');
         }
         return view('admin.category.edit', compact('category'));
     }
     
-    public function update($categoryId, Request $request)
+    public function update($id, Request $request)
     {
-        $category = Category::find($categoryId);
+        $category = Category::find($id);
         if (empty($category)) {
             session()->flash('error', 'Category Not Found');
             return response()->json([
@@ -145,9 +145,9 @@ class CategoryController extends Controller
         }
     }
 
-    public function destroy($categoryId, Request $request)
+    public function destroy($id)
     {
-        $category = Category::find($categoryId);
+        $category = Category::find($id);
         if (empty($category)) {
             return redirect()->route('categories.index');
         }

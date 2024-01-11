@@ -95,7 +95,7 @@ class BrandController extends Controller
         }
     }
 
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
         $brand = Brand::find($id);
         if (empty($brand)) {

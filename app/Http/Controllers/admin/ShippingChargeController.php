@@ -103,7 +103,7 @@ class ShippingChargeController extends Controller
         }
     }
 
-    public function destroy($id, Request $request)
+    public function destroy($id)
     {
         $shippingCharge = ShippingCharge::find($id);
         if (empty($shippingCharge)) {

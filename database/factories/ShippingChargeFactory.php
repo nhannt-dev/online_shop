@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,7 +19,8 @@ class ShippingChargeFactory extends Factory
     {
 
         $country = [];
-        for ($i = 1; $i <= 242; $i++) $country[] = $i;
+        $ct = Country::get();
+        for ($i = 1; $i <= $ct->count(); $i++) $country[] = $i;
 
         $countryRandKey = array_rand($country);
 

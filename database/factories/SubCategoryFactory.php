@@ -20,7 +20,8 @@ class SubCategoryFactory extends Factory
         $name = fake()->unique()->name();
         $slug = Str::slug($name);
 
-        $cate = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        $cate = [];
+        for ($i = 1; $i <= 20; $i++) $cate[] = $i;
         $cateRandKey = array_rand($cate);
 
         return [
