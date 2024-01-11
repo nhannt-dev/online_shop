@@ -65,14 +65,14 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="starts_at">Starts At</label>
-                                <input type="text" name="starts_at" id="starts_at" class="form-control" placeholder="Coupon Starts At">
+                                <input type="datetime" autocomplete="off" name="starts_at" id="starts_at" class="form-control" placeholder="Coupon Starts At">
                                 <p></p>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="expires_at">Expires At</label>
-                                <input type="text" name="expires_at" id="expires_at" class="form-control" placeholder="Coupon Expires At">
+                                <input type="datetime" autocomplete="off" name="expires_at" id="expires_at" class="form-control" placeholder="Coupon Expires At">
                                 <p></p>
                             </div>
                         </div>

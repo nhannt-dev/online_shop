@@ -10,9 +10,14 @@ use Illuminate\Support\Carbon;
 
 class DiscountCouponController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.coupon.list');
+        $discountCoupons = DiscountCoupon::latest();
+        if (!empty($request->get('keyword'))) {
+            $discountCoupons = $discountCoupons->where('name', 'like', '%' . $request->get('keyword') . '%');
+        }
+        $discountCoupons = $discountCoupons->paginate(10);
+        return view('admin.coupon.list', compact('discountCoupons'));
     }
 
     public function create()
@@ -39,7 +44,7 @@ class DiscountCouponController extends Controller
                 }
             }
 
-            if (!empty($request->starts_at)&&!empty($request->expires_at)) {
+            if (!empty($request->starts_at) && !empty($request->expires_at)) {
                 $expires_at = Carbon::createFromFormat('Y-m-d H:i:s', $request->expires_at);
                 $starts_at = Carbon::createFromFormat('Y-m-d H:i:s', $request->starts_at);
                 if (!$expires_at->gt($starts_at)) {
