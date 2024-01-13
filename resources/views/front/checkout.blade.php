@@ -126,6 +126,10 @@
                                 <div class="h6"><strong>Subtotal</strong></div>
                                 <div class="h6"><strong>${{Cart::subtotal()}}</strong></div>
                             </div>
+                            <div class="d-flex justify-content-between summery-end">
+                                <div class="h6"><strong>Discount</strong></div>
+                                <div class="h6"><strong id="discount_val">${{$discount}}</strong></div>
+                            </div>
                             <div class="d-flex justify-content-between mt-2">
                                 <div class="h6"><strong>Shipping</strong></div>
                                 <div class="h6"><strong id="shippingAmount">${{number_format($totalShippingCharge, 2)}}</strong></div>
@@ -135,6 +139,20 @@
                                 <div class="h5"><strong id="grandTotal">${{number_format($grandTotal, 2)}}</strong></div>
                             </div>
                         </div>
+                    </div>
+
+                    <div id="discount_row_wrapper">
+                        @if (Session::has('code'))
+                        <div class="mt-4" id="discount_row">
+                            <strong>{{Session::get('code')->code}}</strong>
+                            <a class="btn btn-sm btn-danger" id="remove_discount"><i class="fa fa-times"></i></a>
+                        </div>
+                        @endif
+                    </div>
+
+                    <div class="input-group apply-coupan mt-4">
+                        <input type="text" placeholder="Coupon Code" class="form-control" name="discount_code" id="discount_code">
+                        <button class="btn btn-dark" type="button" id="apply_discount">Apply Coupon</button>
                     </div>
 
                     <div class="card payment-form ">
@@ -315,6 +333,46 @@
                 if (response?.status) {
                     $('#shippingAmount').html(response.shippingCharge)
                     $('#grandTotal').html(response.grandTotal)
+                }
+            },
+        })
+    })
+
+    $('#apply_discount').click(function() {
+        $.ajax({
+            url: '{{route("shipping.applyDiscount")}}',
+            type: 'post',
+            data: {
+                code: $('#discount_code').val(),
+                country_id: $('#country').val()
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response?.status) {
+                    $('#shippingAmount').html(response?.shippingCharge)
+                    $('#grandTotal').html(response?.grandTotal)
+                    $('#discount_val').html(response?.discount)
+                    $('#discount_row_wrapper').html(response?.discountStr)
+                }
+            },
+        })
+    })
+
+    $('body').on('click', '#remove_discount', function() {
+        $.ajax({
+            url: '{{route("shipping.removeDiscount")}}',
+            type: 'post',
+            data: {
+                country_id: $('#country').val()
+            },
+            dataType: 'json',
+            success: function(response) {
+                if (response?.status) {
+                    $('#shippingAmount').html(response?.shippingCharge)
+                    $('#grandTotal').html(response?.grandTotal)
+                    $('#discount_val').html(response?.discount)
+                    $('#discount_row').html('')
+                    $('#discount_code').val('')
                 }
             },
         })

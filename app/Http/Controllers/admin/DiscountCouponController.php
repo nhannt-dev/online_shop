@@ -103,7 +103,7 @@ class DiscountCouponController extends Controller
         }
 
         $validator = Validator::make($request->all(), [
-            'code' => 'required|unique:discount_coupons,code' . $discountCoupon->id . ',id',
+            'code' => 'required|unique:discount_coupons,code,' . $discountCoupon->id . ',id',
             'discount_amount' => 'required|numeric'
         ]);
 

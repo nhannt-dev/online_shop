@@ -44,6 +44,8 @@ Route::post('/delete-cart', [CartController::class, 'deleteCart'])->name('front.
 Route::get('/checkout', [CartController::class, 'checkout'])->name('front.checkout');
 Route::post('/process-checkout', [CartController::class, 'processCheckout'])->name('front.processCheckout');
 Route::post('/get-order-summary', [CartController::class, 'getOrderSummary'])->name('shipping.getOrderSummary');
+Route::post('/apply-discount', [CartController::class, 'applyDiscount'])->name('shipping.applyDiscount');
+Route::post('/remove-discount', [CartController::class, 'removeDiscount'])->name('shipping.removeDiscount');
 Route::get('/thankyou/{orderId}', [CartController::class, 'thankyou'])->name('front.thankyou');
 
 

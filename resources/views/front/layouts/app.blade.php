@@ -61,8 +61,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6 col-6 text-left  d-flex justify-content-end align-items-center">
-                    <a href="account.php" class="nav-link text-dark">My Account</a>
-                    <form action="">
+                    <form action="" class="mx-2">
                         <div class="input-group">
                             <input type="text" placeholder="Search For Products" class="form-control" aria-label="Amount (to the nearest dollar)">
                             <span class="input-group-text">
@@ -70,6 +69,12 @@
                             </span>
                         </div>
                     </form>
+                    @if (Auth::user()?->email)
+                    <a href="{{route('account.profile')}}" class="nav-link text-dark">Hello {{Auth::user()?->email}}</a>
+                    @else
+                    <a href="{{route('account.login')}}" class="text-dark mx-1">Signin</a>/
+                    <a href="{{route('account.register')}}" class="text-dark mx-1">Signup</a>
+                    @endif
                 </div>
             </div>
         </div>
