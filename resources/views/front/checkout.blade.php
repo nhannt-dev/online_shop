@@ -141,6 +141,11 @@
                         </div>
                     </div>
 
+                    <div class="input-group apply-coupan mt-4">
+                        <input type="text" placeholder="Coupon Code" class="form-control" name="discount_code" id="discount_code">
+                        <button class="btn btn-dark" type="button" id="apply_discount">Apply Coupon</button>
+                    </div>
+                    
                     <div id="discount_row_wrapper">
                         @if (Session::has('code'))
                         <div class="mt-4" id="discount_row">
@@ -148,11 +153,6 @@
                             <a class="btn btn-sm btn-danger" id="remove_discount"><i class="fa fa-times"></i></a>
                         </div>
                         @endif
-                    </div>
-
-                    <div class="input-group apply-coupan mt-4">
-                        <input type="text" placeholder="Coupon Code" class="form-control" name="discount_code" id="discount_code">
-                        <button class="btn btn-dark" type="button" id="apply_discount">Apply Coupon</button>
                     </div>
 
                     <div class="card payment-form ">
@@ -353,6 +353,8 @@
                     $('#grandTotal').html(response?.grandTotal)
                     $('#discount_val').html(response?.discount)
                     $('#discount_row_wrapper').html(response?.discountStr)
+                } else {
+                    $('#discount_row_wrapper').html(`<span class="text-danger">${response?.message}</span>`)
                 }
             },
         })

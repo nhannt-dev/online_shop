@@ -2,3 +2,5 @@ docker exec -it db bash
 psql -U nhannt -W online_shop
 \dt
 SELECT * FROM <tablename>;
+
+http://localhost/phpmyadmin/index.php?route=/database/structure&db=online_shop

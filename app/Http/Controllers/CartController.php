@@ -216,8 +216,8 @@ class CartController extends Controller
             $order->shipping = $shipping;
             $order->grand_total = $grandTotal;
             $order->discount = $discount;
-            $order->coupon_code = $coupon_code;
-            $order->coupon_code_id = $promo_code;
+            $order->coupon_code = $promo_code;
+            $order->coupon_code_id = $coupon_code;
             $order->user_id = $user;
             $order->first_name = $request->first_name;
             $order->last_name = $request->last_name;
@@ -276,7 +276,7 @@ class CartController extends Controller
             $discountStr = '<div class="mt-4" id="discount_row">
             <strong>' . session()->get('code')->code . '</strong>
             <a class="btn btn-sm btn-danger" id="remove_discount"><i class="fa fa-times"></i></a>
-        </div>';
+            </div>';
         }
 
 
@@ -292,7 +292,7 @@ class CartController extends Controller
                 return response()->json([
                     'status' => true,
                     'grandTotal' => number_format($grandTotal, 2),
-                    'discount' => $discount,
+                    'discount' => number_format($discount, 2),
                     'discountStr' => $discountStr,
                     'shippingCharge' => number_format($shippingCharge, 2),
                 ]);
@@ -301,7 +301,7 @@ class CartController extends Controller
             return response()->json([
                 'status' => true,
                 'grandTotal' => number_format($subTotal - $discount, 2),
-                'discount' => $discount,
+                'discount' => number_format($discount, 2),
                 'discountStr' => $discountStr,
                 'shippingCharge' => number_format(0, 2),
             ]);
@@ -324,7 +324,7 @@ class CartController extends Controller
             if ($now->lt($starts_at)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Invalid starts_at discount coupon'
+                    'message' => 'Invalid starts at discount coupon'
                 ]);
             }
         }
@@ -334,11 +334,39 @@ class CartController extends Controller
             if ($now->gt($expires_at)) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Invalid expires_at discount coupon'
+                    'message' => 'Invalid expires at discount coupon'
                 ]);
             }
         }
 
+        if ($discount_code->max_uses > 0) {
+            $couponUsed = Order::where('coupon_code_id', $discount_code->id)->count();
+            if ($couponUsed >= $discount_code->max_uses) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'The discount code has exceeded the number of uses'
+                ]);
+            }
+        }
+
+        if ($discount_code->max_uses_user > 0) {
+            $couponUsedByUser = Order::where(['coupon_code_id' => $discount_code->id, 'user_id' => Auth::user()->id])->count();
+            if ($couponUsedByUser >= $discount_code->max_uses_user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Discount code has been used'
+                ]);
+            }
+        }
+        $subTotal = Cart::subtotal(2, '.', '');
+        if ($discount_code->min_amount > 0) {
+            if ($subTotal < $discount_code->min_amount) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Only applies to total order value of $' . $discount_code->min_amount . ' or more'
+                ]);
+            }
+        }
         session()->flash('code', $discount_code);
         return $this->getOrderSummary($request);
     }
