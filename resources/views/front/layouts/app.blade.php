@@ -69,7 +69,7 @@
                             </span>
                         </div>
                     </form>
-                    @if (Auth::user()?->email)
+                    @if (Auth::check())
                     <a href="{{route('account.profile')}}" class="nav-link text-dark">Hello {{Auth::user()?->email}}</a>
                     @else
                     <a href="{{route('account.login')}}" class="text-dark mx-1">Signin</a>/

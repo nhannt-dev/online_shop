@@ -16,7 +16,7 @@
         "sleep5s": "node -e \"setTimeout(() => process.exit(0), 5000)\"",
         "docker:dev": "docker compose down -v && yarn sleep5s && docker compose up -d dev-db && yarn sleep5s && yarn mgrt && yarn sleep5s && php artisan db:seed --class=CountrySeeder && yarn sleep5s && yarn seed",
         "docker:setup": "docker compose down -v && yarn sleep5s && docker compose up -d db && yarn sleep5s && docker compose up --build laravelapp && yarn sleep5s && docker exec laravelapp php artisan migrate && yarn sleep5s && docker exec laravelapp php artisan db:seed --class=CountrySeeder && yarn sleep5s && docker exec laravelapp php artisan db:seed",
-        "tbl": "php artisan make:migration alter_users_table",
+        "tbl": "php artisan make:migration alter_orders_table",
         "dev": "vite",
         "build": "vite build"
     },
