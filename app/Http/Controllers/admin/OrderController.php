@@ -28,4 +28,19 @@ class OrderController extends Controller
         $orderItems = OrderItem::where('order_id', $id)->get();
         return view('admin.order.detail', compact('order', 'orderItems'));
     }
+
+    public function changeOrderStatus($id, Request $request)
+    {
+        $order = Order::find($id);
+        $order->status = $request->status;
+        $order->shipped_date = $request->shipped_date;
+        $order->save();
+
+        session()->flash('success', 'Order Status changed successfully!');
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Order Status changed successfully!'
+        ]);
+    }
 }

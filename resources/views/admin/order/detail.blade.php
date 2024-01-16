@@ -34,9 +34,13 @@
                                     Phone: {{$order->mobile}}<br>
                                     Email: {{$order->email}}
                                 </address>
+                                <strong>Shipping Date:</strong><br>
+                                @if (!empty($order->shipped_date))
+                                {{Carbon::parse($order->shipped_date)->format('d M, Y')}}
+                                @else
+                                N/A
+                                @endif
                             </div>
-
-
 
                             <div class="col-sm-4 invoice-col">
                                 <b>Invoice #{{$order->id}}</b><br>
@@ -102,20 +106,26 @@
             </div>
             <div class="col-md-3">
                 <div class="card">
-                    <div class="card-body">
-                        <h2 class="h4 mb-3">Order Status</h2>
-                        <div class="mb-3">
-                            <select name="status" id="status" class="form-control">
-                                <option {{$order->status == 'pending' ? 'selected' : ''}} value="pending">Pending</option>
-                                <option {{$order->status == 'shipped' ? 'selected' : ''}} value="shipped">Shipped</option>
-                                <option {{$order->status == 'delivered' ? 'selected' : ''}} value="delivered">Delivered</option>
-                                <!-- <option value="">Canceled</option> -->
-                            </select>
+                    <form method="post" name="changeOrderStatus" id="changeOrderStatus">
+                        <div class="card-body">
+                            <h2 class="h4 mb-3">Order Status</h2>
+                            <div class="mb-3">
+                                <select name="status" id="status" class="form-control">
+                                    <option {{ $order->status == 'pending' ? 'selected' : '' }} value="pending">Pending</option>
+                                    <option {{ $order->status == 'shipped' ? 'selected' : '' }} value="shipped">Shipped</option>
+                                    <option {{ $order->status == 'delivered' ? 'selected' : '' }} value="delivered">Delivered</option>
+                                    <option {{ $order->status == 'canceled' ? 'selected' : '' }} value="canceled">Canceled</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="shipped_date">Shipped Date</label>
+                                <input placeholder="Shipped Date" type="text" value="{{ $order->shipped_date }}" name="shipped_date" id="shipped_date" class="form-control">
+                            </div>
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <button class="btn btn-primary">Update</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="card">
                     <div class="card-body">
@@ -138,4 +148,26 @@
 </section>
 <!-- /.content -->
 
+@endsection
+@section('customJS')
+<script>
+    $(document).ready(function() {
+        $('#shipped_date').datetimepicker({
+            format: 'Y-m-d H:i:s'
+        })
+    })
+
+    $('#changeOrderStatus').submit(function(event) {
+        event.preventDefault()
+        $.ajax({
+            url: '{{route("orders.changeOrderStatus", $order->id)}}',
+            type: 'post',
+            data: $(this).serializeArray(),
+            dataType: 'json',
+            success: function(response) {
+                window.location.href = '{{ route("orders.index") }}'
+            }
+        })
+    })
+</script>
 @endsection

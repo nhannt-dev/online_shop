@@ -43,8 +43,12 @@
                                         <h6 class="heading-xxxs text-muted">Shipped date:</h6>
                                         <!-- Text -->
                                         <p class="mb-lg-0 fs-sm fw-bold">
-                                            <time datetime="2019-10-01">
-                                                01 Oct, 2019
+                                            <time>
+                                                @if (!empty($order->shipped_date))
+                                                {{ Carbon::parse($order->shipped_date)->format('d M, Y') }}
+                                                @else
+                                                N/A
+                                                @endif
                                             </time>
                                         </p>
                                     </div>
@@ -57,8 +61,10 @@
                                             <span class="badge bg-warning">Pending</span>
                                             @elseif ($order->status == 'shipped')
                                             <span class="badge bg-info">Shipped</span>
-                                            @else
+                                            @elseif ($order->status == 'delivered')
                                             <span class="badge bg-success">Delivered</span>
+                                            @else
+                                            <span class="badge bg-danger">Canceled</span>
                                             @endif
                                         </p>
                                     </div>
@@ -125,7 +131,7 @@
                                 <span class="ms-auto">${{number_format($order->subtotal, 2)}}</span>
                             </li>
                             <li class="list-group-item d-flex">
-                                <span>Discount ({{!empty($order->coupon_code) ? $order->coupon_code : ''}})</span>
+                                <span>Discount {{!empty($order->coupon_code) ? '(' . $order->coupon_code . ')' : ''}}</span>
                                 <span class="ms-auto">${{number_format($order->discount, 2)}}</span>
                             </li>
                             <li class="list-group-item d-flex">

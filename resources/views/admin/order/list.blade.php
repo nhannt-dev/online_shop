@@ -19,6 +19,7 @@
 <section class="content">
     <!-- Default box -->
     <div class="container-fluid">
+        @include('admin.message')
         <div class="card">
             <form action="" method="get">
                 <div class="card-header">
@@ -48,6 +49,7 @@
                             <th>Status</th>
                             <th>Amount</th>
                             <th>Date Purchased</th>
+                            <th>Shipped Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,12 +67,21 @@
                                 <span class="badge bg-warning">Pending</span>
                                 @elseif ($order->status == 'shipped')
                                 <span class="badge bg-info">Shipped</span>
-                                @else
+                                @elseif ($order->status == 'delivered')
                                 <span class="badge bg-success">Delivered</span>
+                                @else
+                                <span class="badge bg-danger">Canceled</span>
                                 @endif
                             </td>
                             <td>${{number_format($order->grand_total)}}</td>
                             <td>{{Carbon::parse($order->created_at)->format('d M, Y')}}</td>
+                            <td>
+                                @if (!empty($order->shipped_date))
+                                {{Carbon::parse($order->shipped_date)->format('d M, Y')}}
+                                @else
+                                N/A
+                                @endif
+                            </td>
                         </tr>
                         @endforeach
                         @endif
@@ -78,7 +89,7 @@
                 </table>
             </div>
             <div class="card-footer clearfix">
-            {{$orders->links()}}
+                {{$orders->links()}}
             </div>
         </div>
     </div>

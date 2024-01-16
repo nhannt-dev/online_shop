@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>Orders #</th>
                                         <th>Date Purchased</th>
+                                        <th>Shipping Date</th>
                                         <th>Status</th>
                                         <th>Total</th>
                                     </tr>
@@ -44,13 +45,16 @@
                                             <a href="{{route('account.orders.detail', $order->id)}}">{{$count}}</a>
                                         </td>
                                         <td>{{Carbon::parse($order->created_at)->format('d M, Y')}}</td>
+                                        <td>{{Carbon::parse($order->shipped_date)->format('d M, Y')}}</td>
                                         <td>
                                             @if ($order->status == 'pending')
                                             <span class="badge bg-warning">Pending</span>
                                             @elseif ($order->status == 'shipped')
                                             <span class="badge bg-info">Shipped</span>
-                                            @else
+                                            @elseif ($order->status == 'delivered')
                                             <span class="badge bg-success">Delivered</span>
+                                            @else
+                                            <span class="badge bg-danger">Canceled</span>
                                             @endif
                                         </td>
                                         <td>${{number_format($order->grand_total, 2)}}</td>
