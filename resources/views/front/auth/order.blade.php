@@ -52,7 +52,6 @@
                                             @else
                                             <span class="badge bg-success">Delivered</span>
                                             @endif
-
                                         </td>
                                         <td>${{number_format($order->grand_total, 2)}}</td>
                                     </tr>
