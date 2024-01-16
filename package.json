@@ -8,6 +8,7 @@
         "model": "php artisan make:model DiscountCoupon",
         "dump": "composer dump-autoload",
         "factory": "php artisan make:factory ShippingChargeFactory",
+        "mail": "php artisan make:mail OrderEmail",
         "seed": "php artisan db:seed",
         "seeder": "php artisan make:seeder CountrySeeder",
         "migrate": "php artisan make:migration create_discount_coupons_table",

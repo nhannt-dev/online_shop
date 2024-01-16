@@ -7,7 +7,7 @@
             {{Session::get('success')}}
         </div>
         @endif
-        <h1>Thank You!</h1>
+        <h1>Please check invoice at your email. Thank you!</h1>
     </div>
 </section>
 @endsection
