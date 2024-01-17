@@ -52,7 +52,15 @@
                     <h2 class="price text-secondary"><del>${{$product->compare_price}}</del></h2>
                     @endif
                     <p>{{$product->short_description}}</p>
-                    <a href="javascript:void(0)" onclick="addToCart('{{$product->id}}')" class="btn btn-dark"><i class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART</a>
+                    @if ($product->track_qty == 'Yes' && $product->qty > 0)
+                    <a href="javascript:void(0)" onclick="addToCart('{{$product->id}}')" class="btn btn-dark">
+                        <i class="fas fa-shopping-cart"></i> &nbsp;ADD TO CART
+                    </a>
+                    @else
+                    <a class="btn btn-dark">
+                        <i class="fa fa-shopping-cart"></i> Out Of Stock
+                    </a>
+                    @endif
                 </div>
             </div>
 
@@ -105,12 +113,19 @@
                             <img src="{{asset('admin-assets/img/default-150x150.png')}}" class="card-img-top">
                             @endif
                         </a>
-                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
+                        <a onclick="add2Wishlist('{{$relatedProduct->id}}')" class="whishlist" href="javascript:void(0)"><i class="far fa-heart"></i></a>
+                        <!-- <a class="whishlist" href="222"><i class="far fa-heart"></i></a> -->
 
                         <div class="product-action">
+                            @if ($relatedProduct->track_qty == 'Yes' && $relatedProduct->qty > 0)
                             <a class="btn btn-dark" href="javascript:void(0)" onclick="addToCart('{{$relatedProduct->id}}')">
                                 <i class="fa fa-shopping-cart"></i> Add To Cart
                             </a>
+                            @else
+                            <a class="btn btn-dark">
+                                <i class="fa fa-shopping-cart"></i> Out Of Stock
+                            </a>
+                            @endif
                         </div>
                     </div>
                     <div class="card-body text-center mt-3">
