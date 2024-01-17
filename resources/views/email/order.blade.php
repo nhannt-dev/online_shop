@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Example 1</title>
+    <title>Invoice</title>
     <link rel="stylesheet" href="{{asset('email/style.css')}}" media="all" />
 </head>
 
@@ -20,12 +20,20 @@
             <div><a href="mailto:company@example.com">company@example.com</a></div>
         </div>
         <div id="project">
+            @if ($data['userType'] == 'customer')
             <div><span>PROJECT</span> Website development</div>
-            <div><span>CLIENT</span> {{$data['order']->first_name.' '.$data['order']->last_name}}</div>
+            <div><span>SENDER</span> {{$data['order']->first_name.' '.$data['order']->last_name}}</div>
             <div><span>ADDRESS</span> {{ $data['order']->address }}, {{ $data['order']->city }}, {{ getCountry($data['order']->country_id)->name }}</div>
             <div><span>EMAIL</span> <a href="mailto:john@example.com">john@example.com</a></div>
             <!-- <div><span>DATE</span> August 17, 2015</div>
             <div><span>DUE DATE</span> September 17, 2015</div> -->
+            @else
+            <div><span>PROJECT</span> Website development</div>
+            <div><span>SENDER</span> {{$data['userType']}}</div>
+            <div><span>EMAIL</span> <a href="mailto:john@example.com">john@example.com</a></div>
+            <!-- <div><span>DATE</span> August 17, 2015</div>
+            <div><span>DUE DATE</span> September 17, 2015</div> -->
+            @endif
         </div>
     </header>
     <main>

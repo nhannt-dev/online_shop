@@ -20,6 +20,7 @@
 <section class="content">
     <!-- Default box -->
     <div class="container-fluid">
+        @include('admin.message')
         <div class="row">
             <div class="col-md-9">
                 <div class="card">
@@ -46,7 +47,7 @@
                                 <b>Invoice #{{$order->id}}</b><br>
                                 <br>
                                 <b>Order ID:</b> {{$order->id}}<br>
-                                <b>Total:</b> ${{number_format($order->grand_total)}}<br>
+                                <b>Total:</b> ${{number_format($order->grand_total, 2)}}<br>
                                 <b>Status:</b>
                                 @if ($order->status == 'pending')
                                 <span class="badge bg-warning">Pending</span>
@@ -129,16 +130,18 @@
                 </div>
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="h4 mb-3">Send Inovice Email</h2>
-                        <div class="mb-3">
-                            <select name="status" id="status" class="form-control">
-                                <option value="">Customer</option>
-                                <option value="">Admin</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <button class="btn btn-primary">Send</button>
-                        </div>
+                        <form method="post" name="sendInvoiceEmail" id="sendInvoiceEmail">
+                            <h2 class="h4 mb-3">Send Inovice Email</h2>
+                            <div class="mb-3">
+                                <select name="userType" id="userType" class="form-control">
+                                    <option value="customer">Customer</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <button id="send" class="btn btn-primary">Send</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -159,13 +162,30 @@
 
     $('#changeOrderStatus').submit(function(event) {
         event.preventDefault()
+        $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("orders.changeOrderStatus", $order->id)}}',
             type: 'post',
             data: $(this).serializeArray(),
             dataType: 'json',
             success: function(response) {
+                $('button[type="submit"]').prop('disabled', false)
                 window.location.href = '{{ route("orders.index") }}'
+            }
+        })
+    })
+
+    $('#sendInvoiceEmail').submit(function(event) {
+        event.preventDefault()
+        $('#send').prop('disabled', true)
+        $.ajax({
+            url: '{{route("orders.sendInvoiceEmail", $order->id)}}',
+            type: 'post',
+            data: $(this).serializeArray(),
+            dataType: 'json',
+            success: function(response) {
+                $('#send').prop('disabled', false)
+                window.location.href = '{{ route("orders.detail", $order->id) }}'
             }
         })
     })
