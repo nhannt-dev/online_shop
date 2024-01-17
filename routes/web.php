@@ -48,6 +48,7 @@ Route::post('/get-order-summary', [CartController::class, 'getOrderSummary'])->n
 Route::post('/apply-discount', [CartController::class, 'applyDiscount'])->name('shipping.applyDiscount');
 Route::post('/remove-discount', [CartController::class, 'removeDiscount'])->name('shipping.removeDiscount');
 Route::get('/thankyou/{orderId}', [CartController::class, 'thankyou'])->name('front.thankyou');
+Route::post('/add-to-wishlist', [FrontController::class, 'add2Wishlist'])->name('front.add2Wishlist');
 
 
 Route::group(['prefix' => 'account'], function () {
@@ -62,6 +63,8 @@ Route::group(['prefix' => 'account'], function () {
         Route::get('/profile', [AuthController::class, 'profile'])->name('account.profile');
         Route::get('/orders', [AuthController::class, 'orders'])->name('account.orders');
         Route::get('/order-detail/{orderId}', [AuthController::class, 'orderDetail'])->name('account.orders.detail');
+        Route::get('/wishlist', [AuthController::class, 'wishlist'])->name('account.wishlist');
+        Route::post('/wishlist-remove', [AuthController::class, 'removeProd'])->name('account.removeProd');
         Route::get('/logout', [AuthController::class, 'logout'])->name('account.logout');
     });
 });
