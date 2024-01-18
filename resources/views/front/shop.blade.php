@@ -186,6 +186,10 @@
         if (brands.length > 0) {
             url += '&brand=' + brands.toString()
         }
+        var keyword = $('#search').val()
+        if (keyword.length > 0) {
+            url += '&search=' + keyword
+        }
         url += '&sort=' + $('#sort').val()
         window.location.href = url
     }

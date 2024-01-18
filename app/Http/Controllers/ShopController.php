@@ -44,6 +44,10 @@ class ShopController extends Controller
             }
         }
 
+        if (!empty($request->get('search'))) {
+            $products = $products->where('title', 'like', '%' . $request->get('search') . '%');
+        }
+
         $price_min = intval($request->get('price_min'));
         $price_max = (intval($request->get('price_max')) == 0 ? 1000 : $request->get('price_max'));
 
