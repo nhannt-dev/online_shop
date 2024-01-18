@@ -93,7 +93,7 @@
         var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
-            url: '{{route("categories.update",$category->id)}}',
+            url: '{{route("categories.update", $category->id)}}',
             type: 'put',
             data: element.serializeArray(),
             dataType: 'json',
@@ -125,30 +125,29 @@
     })
 
     $('#name').change(function() {
-        var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("getSlug")}}',
             type: 'get',
             data: {
-                title: element.val()
+                title: $(this).val()
             },
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
-                if (response['status'] == true) {
+                if (response['status']) {
                     $('#slug').val(response['slug'])
                 }
             }
         })
     })
 
-    Dropzone.autoDiscover = false;
+    Dropzone.autoDiscover = false
     const dropzone = $("#image").dropzone({
         init: function() {
             this.on('addedfile', function(file) {
                 if (this.files.length > 1) {
-                    this.removeFile(this.files[0]);
+                    this.removeFile(this.files[0])
                 }
             });
         },
@@ -161,7 +160,7 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function(file, response) {
-            $("#image_id").val(response.image_id);
+            $("#image_id").val(response.image_id)
         }
     })
 </script>

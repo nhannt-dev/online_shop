@@ -4,8 +4,6 @@
     <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <!-- <img src="images/carousel-1.jpg" class="d-block w-100" alt=""> -->
-
                 <picture>
                     <source media="(max-width: 799px)" srcset="{{asset('front-assets/images/carousel-1-m.jpg')}}" />
                     <source media="(min-width: 800px)" srcset="{{asset('front-assets/images/carousel-1.jpg')}}" />
@@ -191,7 +189,7 @@
                             <img src="{{asset('admin-assets/img/default-150x150.png')}}" class="card-img-top">
                             @endif
                         </a>
-                        <a class="whishlist" href="222"><i class="far fa-heart"></i></a>
+                        <a onclick="add2Wishlist('{{$product->id}}')" class="whishlist" href="javascript:void(0)"><i class="far fa-heart"></i></a>
 
                         <div class="product-action">
                             @if ($product->track_qty == 'Yes' && $product->qty > 0)

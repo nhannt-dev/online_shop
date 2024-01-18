@@ -105,10 +105,6 @@
                         </div>
                     </div>
                 </div>
-                <!-- <div class="input-group apply-coupan mt-4">
-                    <input type="text" placeholder="Coupon Code" class="form-control">
-                    <button class="btn btn-dark" type="button" id="button-addon2">Apply Coupon</button>
-                </div> -->
             </div>
         </div>
     </div>
@@ -144,8 +140,8 @@
             },
             dataType: 'json',
             success: function(response) {
-                window.location.href = '{{route("front.cart")}}'
-            },
+                window.location.reload()
+            }
         })
     }
 
@@ -159,8 +155,8 @@
                 },
                 dataType: 'json',
                 success: function(response) {
-                    window.location.href = '{{route("front.cart")}}'
-                },
+                    window.location.reload()
+                }
             })
         }
     }

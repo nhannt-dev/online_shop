@@ -185,7 +185,7 @@
             dataType: 'json',
             success: function(response) {
                 $('#send').prop('disabled', false)
-                window.location.href = '{{ route("orders.detail", $order->id) }}'
+                window.location.reload()
             }
         })
     })

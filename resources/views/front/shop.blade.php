@@ -165,7 +165,6 @@
 
     var slider = $(".js-range-slider").data('ionRangeSlider')
 
-
     $('.brand-label').change(function() {
         applyFilters()
     })

@@ -88,7 +88,7 @@
                 dataType: 'json',
                 success: function(response) {
                     if (response?.status) {
-                        window.location.href = '{{route("account.wishlist")}}'
+                        window.location.reload()
                     }
                 }
             })

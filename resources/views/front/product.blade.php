@@ -114,7 +114,6 @@
                             @endif
                         </a>
                         <a onclick="add2Wishlist('{{$relatedProduct->id}}')" class="whishlist" href="javascript:void(0)"><i class="far fa-heart"></i></a>
-                        <!-- <a class="whishlist" href="222"><i class="far fa-heart"></i></a> -->
 
                         <div class="product-action">
                             @if ($relatedProduct->track_qty == 'Yes' && $relatedProduct->qty > 0)
