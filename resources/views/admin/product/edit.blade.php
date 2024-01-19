@@ -269,7 +269,7 @@
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
-                if (response['status'] == true) {
+                if (response['status']) {
                     $('.error').removeClass('invalid-feedback').html()
                     $('input[type="text"], select, input[type="number"]').removeClass('is-invalid')
                     window.location.href = "{{route('products.index')}}"
@@ -281,26 +281,22 @@
                         $(`#${key}`).addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(value)
                     })
                 }
-            },
-            error: function(jqXHR, exception) {
-                console.log('Something went wrong')
             }
         })
     })
 
     $('#title').change(function() {
-        var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("getSlug")}}',
             type: 'get',
             data: {
-                title: element.val()
+                title: $(this).val()
             },
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
-                if (response['status'] == true) {
+                if (response['status']) {
                     $('#slug').val(response['slug'])
                 }
             }
@@ -321,9 +317,6 @@
                 $.each(response['subCategories'], function(key, item) {
                     $('#sub_category').append(`<option value='${item.id}'>${item.name}</option>`)
                 })
-            },
-            error: function(jqXHR, exception) {
-                console.log('Something went wrong')
             }
         })
     })

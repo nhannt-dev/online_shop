@@ -116,13 +116,12 @@
     })
 
     $('#name').change(function() {
-        var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("getSlug")}}',
             type: 'get',
             data: {
-                title: element.val()
+                title: $(this).val()
             },
             dataType: 'json',
             success: function(response) {

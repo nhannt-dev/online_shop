@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\ProductSubCategoryController;
 use App\Http\Controllers\admin\ShippingChargeController;
 use App\Http\Controllers\admin\SubCategoryController;
 use App\Http\Controllers\admin\TempImagesController;
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FrontController;
@@ -128,11 +129,18 @@ Route::group(['prefix' => 'admin'], function () {
         Route::put('/coupons/{coupon}', [DiscountCouponController::class, 'update'])->name('coupons.update');
         Route::delete('/coupons/{coupon}', [DiscountCouponController::class, 'destroy'])->name('coupons.delete');
 
-        Route::get('/orders',[OrderController::class,'index'])->name('orders.index');
-        Route::get('/orders/{order}',[OrderController::class,'detail'])->name('orders.detail');
-        Route::post('/orders/change-status/{order}',[OrderController::class,'changeOrderStatus'])->name('orders.changeOrderStatus');
-        Route::post('/orders/send-invoice-email/{order}',[OrderController::class,'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
-        
+        Route::get('/orders', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{order}', [OrderController::class, 'detail'])->name('orders.detail');
+        Route::post('/orders/change-status/{order}', [OrderController::class, 'changeOrderStatus'])->name('orders.changeOrderStatus');
+        Route::post('/orders/send-invoice-email/{order}', [OrderController::class, 'sendInvoiceEmail'])->name('orders.sendInvoiceEmail');
+
+        Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.delete');
+
         Route::post('/upload-temp-image', [TempImagesController::class, 'create'])->name('temp-images.create');
 
         Route::post('/getSlug', function (Request $request) {

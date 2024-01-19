@@ -127,12 +127,11 @@
 
     $('#couponForm').submit(function(event) {
         event.preventDefault()
-        var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("coupons.update", $discountCoupon->id)}}',
             type: 'put',
-            data: element.serializeArray(),
+            data: $(this).serializeArray(),
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)

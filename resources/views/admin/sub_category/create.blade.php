@@ -86,16 +86,15 @@
 <script>
     $('#subCategoryForm').submit(function(event) {
         event.preventDefault()
-        var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("sub-categories.store")}}',
             type: 'post',
-            data: element.serializeArray(),
+            data: $(this).serializeArray(),
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
-                if (response['status'] == true) {
+                if (response['status']) {
                     window.location.href = "{{route('sub-categories.index')}}"
                     $('#name').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
                     $('#slug').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
@@ -113,26 +112,22 @@
                         $('#slug').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
                     }
                 }
-            },
-            error: function(jqXHR, exception) {
-                console.log('Something went wrong')
             }
         })
     })
 
     $('#name').change(function() {
-        var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("getSlug")}}',
             type: 'get',
             data: {
-                title: element.val()
+                title: $(this).val()
             },
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
-                if (response['status'] == true) {
+                if (response['status']) {
                     $('#slug').val(response['slug'])
                 }
             }

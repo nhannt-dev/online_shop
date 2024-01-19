@@ -62,16 +62,15 @@
 <script>
     $('#shippingForm').submit(function(event) {
         event.preventDefault()
-        var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("shipping.store")}}',
             type: 'post',
-            data: element.serializeArray(),
+            data: $(this).serializeArray(),
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
-                if (response['status'] == true) {
+                if (response['status']) {
                     window.location.href = "{{route('shipping.index')}}"
                     $('#country').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
                     $('#amount').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')

@@ -4,7 +4,7 @@
     "scripts": {
         "admin": "start http://127.0.0.1:8000/admin/login && php artisan serve",
         "user": "start http://127.0.0.1:8000 && php artisan serve",
-        "controller": "php artisan make:controller admin/OrderController",
+        "controller": "php artisan make:controller admin/UserController",
         "model": "php artisan make:model Wishlist",
         "dump": "composer dump-autoload",
         "factory": "php artisan make:factory ShippingChargeFactory",
@@ -13,6 +13,7 @@
         "seeder": "php artisan make:seeder CountrySeeder",
         "migrate": "php artisan make:migration create_wishlists_table",
         "mgrt": "php artisan migrate",
+        "mgrt:refresh": "php artisan migrate:refresh",
         "tinker": "php artisan tinker",
         "sleep5s": "node -e \"setTimeout(() => process.exit(0), 5000)\"",
         "docker:dev": "docker compose down -v && yarn sleep5s && docker compose up -d dev-db && yarn sleep5s && yarn mgrt && yarn sleep5s && php artisan db:seed --class=CountrySeeder && yarn sleep5s && yarn seed",

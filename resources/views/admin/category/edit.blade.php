@@ -90,12 +90,11 @@
 <script>
     $('#categoryForm').submit(function(event) {
         event.preventDefault()
-        var element = $(this)
         $('button[type="submit"]').prop('disabled', true)
         $.ajax({
             url: '{{route("categories.update", $category->id)}}',
             type: 'put',
-            data: element.serializeArray(),
+            data: $(this).serializeArray(),
             dataType: 'json',
             success: function(response) {
                 $('button[type="submit"]').prop('disabled', false)
