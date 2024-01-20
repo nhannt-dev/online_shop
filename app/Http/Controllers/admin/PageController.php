@@ -52,16 +52,55 @@ class PageController extends Controller
         }
     }
 
-    public function edit()
+    public function edit($id, Request $request)
     {
-        return view('admin.page.edit');
+        $page = Page::find($id);
+        if (empty($page)) {
+            session()->flash('error', 'Page Not Found!');
+            return redirect()->route('pages.index');
+        }
+        return view('admin.page.edit', compact('page'));
     }
 
-    public function update()
+    public function update($id, Request $request)
     {
+        $page = Page::find($id);
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'slug' => 'required',
+        ]);
+        if ($validator->passes()) {
+            $page->name = $request->name;
+            $page->slug = $request->slug;
+            $page->content = $request->content;
+            $page->save();
+
+            session()->flash('success', 'Page updated successfully!');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Page updated successfully!'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 
-    public function destroy()
+    public function destroy($id)
     {
+        $page = Page::find($id);
+        if (empty($page)) {
+            session()->flash('error', 'Page Not Found!');
+            return redirect()->route('pages.index');
+        }
+        $page->delete();
+        session()->flash('success', 'Page deleted successfully!');
+        return response()->json([
+            'status' => true,
+            'message' => 'Page updated successfully!'
+        ]);
     }
 }

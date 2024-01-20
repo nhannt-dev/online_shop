@@ -27,7 +27,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Name">
+                                <input type="text" autocomplete="off" name="name" id="name" class="form-control" placeholder="Name">
                                 <p></p>
                             </div>
                         </div>
