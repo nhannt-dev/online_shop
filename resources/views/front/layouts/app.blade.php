@@ -145,11 +145,11 @@
                     <div class="footer-card">
                         <h3>Important Links</h3>
                         <ul>
-                            <li><a href="about-us.php" title="About">About</a></li>
-                            <li><a href="contact-us.php" title="Contact Us">Contact Us</a></li>
-                            <li><a href="#" title="Privacy">Privacy</a></li>
-                            <li><a href="#" title="Privacy">Terms & Conditions</a></li>
-                            <li><a href="#" title="Privacy">Refund Policy</a></li>
+                            @if (getStaticPages()->isNotEmpty())
+                            @foreach (getStaticPages() as $page)
+                            <li><a href="{{route('front.page', $page->slug)}}" title="{{$page->name}}">{{$page->name}}</a></li>
+                            @endforeach
+                            @endif
                         </ul>
                     </div>
                 </div>
@@ -158,9 +158,16 @@
                     <div class="footer-card">
                         <h3>My Account</h3>
                         <ul>
-                            <li><a href="#" title="Sell">Login</a></li>
-                            <li><a href="#" title="Advertise">Register</a></li>
-                            <li><a href="#" title="Contact Us">My Orders</a></li>
+                            @if (Auth::check())
+                            <li><a href="{{route('account.profile')}}" title="Profile">Profile</a></li>
+                            <li><a href="{{route('account.orders')}}" title="Orders">Orders</a></li>
+                            <li><a href="{{route('account.wishlist')}}" title="Wishlist">Wishlist</a></li>
+                            <li><a href="#" title="Change Password">Change Password</a></li>
+                            <li><a href="{{route('account.logout')}}" title="Logout">Logout</a></li>
+                            @else
+                            <li><a href="{{route('account.login')}}" title="Login">Login</a></li>
+                            <li><a href="{{route('account.register')}}" title="Register">Register</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
