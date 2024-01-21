@@ -22,7 +22,7 @@
     <div class="container-fluid">
         @include('admin.message')
         <div class="card">
-            <form action="" method="get">
+            <form method="get">
                 <div class="card-header">
                     <div class="card-title">
                         <a href="{{route('brands.index')}}" class="btn btn-default btn-sm">Reset</a>

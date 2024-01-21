@@ -162,7 +162,7 @@
                             <li><a href="{{route('account.profile')}}" title="Profile">Profile</a></li>
                             <li><a href="{{route('account.orders')}}" title="Orders">Orders</a></li>
                             <li><a href="{{route('account.wishlist')}}" title="Wishlist">Wishlist</a></li>
-                            <li><a href="#" title="Change Password">Change Password</a></li>
+                            <li><a href="{{route('account.changePassword')}}" title="Change Password">Change Password</a></li>
                             <li><a href="{{route('account.logout')}}" title="Logout">Logout</a></li>
                             @else
                             <li><a href="{{route('account.login')}}" title="Login">Login</a></li>

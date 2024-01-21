@@ -20,7 +20,7 @@
 <section class="content">
     <!-- Default box -->
     <div class="container-fluid">
-        <form action="" method="post" id="pageForm" name="pageForm">
+        <form method="post" id="pageForm" name="pageForm">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
