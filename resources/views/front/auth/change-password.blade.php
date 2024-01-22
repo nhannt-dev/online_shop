@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label for="confirm_password">Confirm Password</label>
-                                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Old Password" class="form-control">
+                                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Confirm Password" class="form-control">
                                     <p></p>
                                 </div>
                                 <div class="d-flex">
