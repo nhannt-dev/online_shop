@@ -13,8 +13,111 @@
 
 <section class=" section-10">
     <div class="container">
-        <h1 class="my-3">{{$page->name}}</h1>
-        {!! $page->content !!}
+        @if (Session::has('success'))
+        <div class="alert alert-success">
+            {{Session::get('success')}}
+        </div>
+        @endif
+        <div class="section-title mt-5 ">
+            <h2>{{$page->name}}</h2>
+        </div>
     </div>
 </section>
+
+@if ($page->slug == 'contact-us')
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mt-3 pe-lg-5">
+                <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using Content.</p>
+                <address>
+                    Cecilia Chapman <br>
+                    711-2880 Nulla St.<br>
+                    Mankato Mississippi 96522<br>
+                    <a href="tel:+xxxxxxxx">(XXX) 555-2368</a><br>
+                    <a href="mailto:jim@rock.com">jim@rock.com</a>
+                </address>
+            </div>
+
+            <div class="col-md-6">
+                <form class="shake" role="form" method="post" id="contactForm" name="contactForm">
+                    <div class="mb-3">
+                        <label class="mb-2" for="name">Name</label>
+                        <input class="form-control" autocomplete="off" id="name" type="text" name="name" data-error="Please enter your name">
+                        <p></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="mb-2" for="email">Email</label>
+                        <input class="form-control" autocomplete="off" id="email" type="text" name="email" data-error="Please enter your Email">
+                        <p></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="mb-2">Subject</label>
+                        <input class="form-control" autocomplete="off" id="subject" type="text" name="subject" data-error="Please enter your message subject">
+                        <p></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="message" class="mb-2">Message</label>
+                        <textarea class="form-control" rows="3" id="message" name="message" data-error="Write your message"></textarea>
+                    </div>
+
+                    <div class="form-submit">
+                        <button class="btn btn-dark" type="submit" id="form-submit"><i class="material-icons mdi mdi-message-outline"></i> Send Message</button>
+                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@else
+{{$page->content}}
+@endif
+@endsection
+
+@section('customJS')
+<script>
+    $('#contactForm').submit(function(event) {
+        event.preventDefault()
+        $('button[type="submit"]').prop('disabled', true)
+        $.ajax({
+            url: '{{route("front.sendContactForm")}}',
+            type: 'post',
+            data: $(this).serializeArray(),
+            dataType: 'json',
+            success: function(response) {
+                $('button[type="submit"]').prop('disabled', false)
+                if (response['status']) {
+                    window.location.reload()
+                    $('#name').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
+                    $('#email').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
+                    $('#subject').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
+                } else {
+                    var errors = response['errors']
+                    if (errors['name']) {
+                        $('#name').addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['name'])
+                    } else {
+                        $('#name').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
+                    }
+
+                    if (errors['email']) {
+                        $('#email').addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['email'])
+                    } else {
+                        $('#email').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
+                    }
+
+                    if (errors['subject']) {
+                        $('#subject').addClass('is-invalid').siblings('p').addClass('invalid-feedback').html(errors['subject'])
+                    } else {
+                        $('#subject').removeClass('is-invalid').siblings('p').removeClass('invalid-feedback').html('')
+                    }
+                }
+            }
+        })
+    })
+</script>
 @endsection

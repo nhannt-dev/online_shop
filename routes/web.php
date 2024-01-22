@@ -53,6 +53,7 @@ Route::post('/remove-discount', [CartController::class, 'removeDiscount'])->name
 Route::get('/thankyou/{orderId}', [CartController::class, 'thankyou'])->name('front.thankyou');
 Route::post('/add-to-wishlist', [FrontController::class, 'add2Wishlist'])->name('front.add2Wishlist');
 Route::get('/page/{slug}', [FrontController::class, 'page'])->name('front.page');
+Route::post('/send-contact', [FrontController::class, 'sendContactForm'])->name('front.sendContactForm');
 
 Route::group(['prefix' => 'account'], function () {
     Route::group(['middleware' => 'guest'], function () { // See more at Kernel.php file
