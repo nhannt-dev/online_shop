@@ -8,7 +8,7 @@
         "model": "php artisan make:model Page",
         "dump": "composer dump-autoload",
         "factory": "php artisan make:factory ShippingChargeFactory",
-        "mail": "php artisan make:mail ContactEmail",
+        "mail": "php artisan make:mail ResetPasswordEmail",
         "seed": "php artisan db:seed",
         "seeder": "php artisan make:seeder CountrySeeder",
         "migrate": "php artisan make:migration create_pages_table",
