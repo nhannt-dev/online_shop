@@ -47,7 +47,7 @@
                             <th width="80">Image</th>
                             <th>Title</th>
                             <th>Price</th>
-                            <th>Qty</th>
+                            <th>Quantity</th>
                             <th>SKU</th>
                             <th width="100">Status</th>
                             <th width="100">Action</th>
@@ -70,7 +70,13 @@
                             </td>
                             <td><a href="#">{{$product->title}}</a></td>
                             <td>${{$product->price}}</td>
-                            <td>{{$product->qty}} left in Stock</td>
+                            @if ($product->qty >= 10)
+                            <td class="text-success font-weight-bold">{{$product->qty}} left in Stock</td>
+                            @elseif ($product->qty < 5)
+                            <td class="text-danger font-weight-bold">{{$product->qty}} left in Stock</td>
+                            @else
+                            <td class="text-warning font-weight-bold">{{$product->qty}} left in Stock</td>
+                            @endif
                             <td>{{$product->sku}}</td>
                             <td>
                                 @if ($product->status == 1)

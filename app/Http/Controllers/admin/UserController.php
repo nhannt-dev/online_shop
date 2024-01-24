@@ -18,7 +18,7 @@ class UserController extends Controller
             $users = $users->orWhere('email', 'like', '%' . $request->get('keyword') . '%');
             $users = $users->orWhere('phone', 'like', '%' . $request->get('keyword') . '%');
         }
-        $users = $users->paginate(10);
+        $users = $users->where('role', 1)->paginate(10);
         return view('admin.user.list', compact('users'));
     }
 
