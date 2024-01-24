@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductRating;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ShopController extends Controller
 {
@@ -77,5 +79,38 @@ class ShopController extends Controller
             $relatedProducts = Product::whereIn('id', $productArr)->where('status', 1)->with('product_images')->get();
         }
         return view('front.product', compact('product', 'relatedProducts'));
+    }
+
+    public function rating(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|email',
+            'comment' => 'required',
+            'rating' => 'required',
+        ]);
+
+        if ($validator->passes()) {
+            $productRating = new ProductRating();
+            $productRating->product_id = $id;
+            $productRating->username = $request->name;
+            $productRating->email = $request->email;
+            $productRating->comment = $request->comment;
+            $productRating->rating = $request->rating;
+            $productRating->status = 0;
+            $productRating->save();
+
+            session()->flash('success', 'Your rating have been sent successfully!');
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Your rating have been sent successfully!'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'errors' => $validator->errors()
+            ]);
+        }
     }
 }

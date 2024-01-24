@@ -58,6 +58,7 @@ Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->name(
 Route::post('/process-forgot-password', [AuthController::class, 'processForgotPassword'])->name('front.processForgotPassword');
 Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('front.resetPassword');
 Route::post('/process-reset-password', [AuthController::class, 'processResetPassword'])->name('front.processResetPassword');
+Route::post('/rating/{product}', [ShopController::class, 'rating'])->name('front.rating');
 
 Route::group(['prefix' => 'account'], function () {
     Route::group(['middleware' => 'guest'], function () { // See more at Kernel.php file
