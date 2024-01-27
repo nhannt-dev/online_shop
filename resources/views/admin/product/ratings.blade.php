@@ -7,10 +7,7 @@
     <div class="container-fluid my-2">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Products</h1>
-            </div>
-            <div class="col-sm-6 text-right">
-                <a href="{{route('products.rating')}}" class="btn btn-primary">New Product</a>
+                <h1>Product Ratings</h1>
             </div>
         </div>
     </div>
@@ -29,7 +26,7 @@
                     </div>
                     <div class="card-tools">
                         <div class="input-group input-group" style="width: 250px;">
-                            <input type="text" autocomplete="off" name="keyword" value="{{Request::get('keyword')}}" class="form-control float-right" placeholder="Search Product Name">
+                            <input type="text" autocomplete="off" name="keyword" value="{{Request::get('keyword')}}" class="form-control float-right" placeholder="Search Product Rating">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fas fa-search"></i>
